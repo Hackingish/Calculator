@@ -5,9 +5,21 @@ const App = () => {
   
   const [input,setInput] = useState("");
 
-  const handleClick = (value) =>{
-    setInput((prev)=> prev + value);
-  }
+  const operators = ["+", "-", "*", "/", "%"];
+
+  const handleClick = (value) => {
+    setInput((prev) => {
+      const lastChar = prev.slice(-1);
+
+      if (prev === "Error") return value;
+      
+      if (operators.includes(value) && operators.includes(lastChar)) {
+        return prev.slice(0, -1) + value; // replace operator
+      }
+
+      return prev + value;
+  });
+};
 
   const handleClear = () =>{
     setInput("");
